@@ -215,6 +215,39 @@
   z-index: 9999;
 }
 
+
+.tooltip-portal {
+  position: absolute;
+  background: #222;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 9999;
+  white-space: normal;
+}
+
+.copy-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #30d680;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(83, 255, 112, 0.67);
+  font-weight: bold;
+  z-index: 9999;
+}
+
+@media (max-width: 600px) {
+  .tooltip-portal {
+    max-width: 200px;
+    font-size: 13px;
+  }
+}
+
+
 /* Responsive adjustments for tablets (580px and up) */
 @media (min-width: 580px) {
   .simple-mode-container {
@@ -307,10 +340,6 @@
 @media (max-width: 405px) {
   .mode-title {
     font-size: 1.2rem;
-  }
-
-  .command-card {
-    overflow:hidden;
   }
 
   .simple-mode-content {

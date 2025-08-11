@@ -1,24 +1,56 @@
 import { useState } from 'react';
 import { FaCopy, FaInfoCircle } from 'react-icons/fa';
+import { createPortal } from 'react-dom';
 import { useIp } from '../contexts/IpContext';
 import '../styles/SimpleMode.css';
 
-const CommandCard = ({ command, onCopy }) => {
+// Tooltip component rendered via portal
+const Tooltip = ({ text, position }) => {
+  if (!position) return null;
+
+  return createPortal(
+    <div
+      className="tooltip-portal"
+      style={{
+        top: position.top,
+        left: position.left,
+        transform: 'translateX(-50%)',
+        maxWidth: '250px',
+        wordWrap: 'break-word',
+        zIndex: 9999,
+        backgroundColor: '#333',
+        color: '#fff',
+        padding: '8px',
+        borderRadius: '5px',
+        fontSize: '14px',
+        pointerEvents: 'none',
+        position: 'absolute'
+      }}
+    >
+      {text}
+    </div>,
+    document.body
+  );
+};
+
+const CommandCard = ({ command, onCopy, onTooltipShow, onTooltipHide }) => {
   return (
     <div className="command-card">
       <div className="command-header">
         <h4>{command.label}</h4>
-        <div className="tooltip">
-          <FaInfoCircle className="info-icon" />
-          <span className="tooltiptext">{command.explanation}</span>
-        </div>
+        <FaInfoCircle
+          className="info-icon"
+          onMouseEnter={(e) => onTooltipShow(e, command.explanation)}
+          onMouseLeave={onTooltipHide}
+          style={{ cursor: 'pointer', marginLeft: '8px' }}
+        />
       </div>
       <div className="command-body">
         <div className="command-text-container">
           <code className="command-text">{command.getCommand()}</code>
         </div>
-        <button 
-          className="copy-button" 
+        <button
+          className="copy-button"
           onClick={() => onCopy(command.getCommand())}
           aria-label="Copy command"
         >
@@ -33,12 +65,12 @@ const SimpleMode = () => {
   const { ip } = useIp();
   const [copiedIndex, setCopiedIndex] = useState(null);
   const [notification, setNotification] = useState("");
+  const [tooltip, setTooltip] = useState({ text: "", position: null });
 
   const commands = [
     {
       id: 'Ulimit-Scan',
       label: 'Increase Ulimit for More Ports',
-      // RustScan's --ulimit must be before the IP, -a <ip> is valid
       getCommand: () => `rustscan --ulimit 1000 -a ${ip} -- -sC -sV`,
       explanation: 'Raise ulimit to handle more simultaneous ports, then run Nmap scripts and service detection'
     },
@@ -51,56 +83,48 @@ const SimpleMode = () => {
     {
       id: 'All-Ports-Scan',
       label: 'All Ports Scan',
-      // Use -r for range; remove -a duplication of IP listing (already given)
       getCommand: () => `rustscan -a ${ip} -r 1-65535`,
       explanation: 'Scan all 65,535 ports — faster than Nmap, but without detailed service info by default'
     },
     {
       id: 'Batch-Size-Scan',
       label: 'High Speed Scan',
-      // Valid: -b <batch_size>
       getCommand: () => `rustscan -a ${ip} -b 4500`,
       explanation: 'Increase batch size to 4,500 for faster results (risk: might overwhelm slower networks)'
     },
     {
       id: 'Nmap-Integration',
       label: 'RustScan + Nmap Aggressive Scan',
-      // Valid: -A is an Nmap flag, must come after `--`
       getCommand: () => `rustscan -a ${ip} -- -A`,
       explanation: 'RustScan for port discovery, then Nmap aggressive scan (OS detect, version, scripts, traceroute)'
     },
     {
       id: 'Top-Ports-Scan',
       label: 'Top Ports Scan',
-      // -F is Nmap's fast scan, must come after `--`
       getCommand: () => `rustscan -a ${ip} -- -F`,
       explanation: 'Scan only the top 100 most common ports quickly (uses Nmap’s -F flag)'
     },
     {
       id: 'Script-Scan',
       label: 'Service & Script Scan',
-      // Both -sC and -sV are Nmap flags → must be after `--`
       getCommand: () => `rustscan -a ${ip} -- -sC -sV`,
       explanation: 'RustScan for discovery, Nmap default scripts (-sC) and service/version detection (-sV)'
     },
     {
       id: 'Quiet-Scan',
       label: 'Quiet Scan',
-      // -q is a valid RustScan flag
       getCommand: () => `rustscan -a ${ip} -q`,
       explanation: 'Quiet mode — only shows open ports without additional output'
     },
     {
       id: 'Custom-Range',
       label: 'Custom Port Range',
-      // -r for range is valid
       getCommand: () => `rustscan -a ${ip} -r 1-1000`,
       explanation: 'Scan a specific port range (example: 1-1000)'
     },
     {
       id: 'UDP-Scan',
       label: 'UDP Scan (via Nmap)',
-      // -sU is an Nmap flag → must be after `--`
       getCommand: () => `rustscan -a ${ip} -- -sU`,
       explanation: 'RustScan for discovery, then Nmap UDP scan (-sU) — slower but detects UDP services'
     }
@@ -114,6 +138,21 @@ const SimpleMode = () => {
       setCopiedIndex(null);
       setNotification("");
     }, 2000);
+  };
+
+  const showTooltip = (event, text) => {
+    const rect = event.target.getBoundingClientRect();
+    setTooltip({
+      text,
+      position: {
+        top: rect.top - 10 + window.scrollY,
+        left: rect.left + rect.width / 2 + window.scrollX
+      }
+    });
+  };
+
+  const hideTooltip = () => {
+    setTooltip({ text: "", position: null });
   };
 
   return (
@@ -135,10 +174,12 @@ const SimpleMode = () => {
 
         <div className="commands-grid">
           {commands.map((cmd, index) => (
-            <CommandCard 
+            <CommandCard
               key={cmd.id}
               command={cmd}
               onCopy={(text) => copyToClipboard(text, index)}
+              onTooltipShow={showTooltip}
+              onTooltipHide={hideTooltip}
             />
           ))}
         </div>
@@ -160,6 +201,8 @@ const SimpleMode = () => {
           {notification}
         </div>
       )}
+
+      <Tooltip text={tooltip.text} position={tooltip.position} />
     </div>
   );
 };
