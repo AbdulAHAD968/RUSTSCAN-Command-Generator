@@ -46,6 +46,7 @@
 
 /* Command card styling */
 .command-card {
+  overflow:hidden;
   background: #a5d8ff16;
   border-radius: 8px;
   padding: 1rem;
@@ -309,7 +310,7 @@
   }
 
   .command-card {
-    width: 97%;
+    overflow:hidden;
   }
 
   .simple-mode-content {

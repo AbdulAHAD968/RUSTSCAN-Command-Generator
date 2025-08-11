@@ -10,7 +10,7 @@ const Header = () => {
       </div>
 
       <a
-        href="https://github.com/AbdulAHAD968/NMAP-COMMAND-GENERATOR"
+        href="https://github.com/AbdulAHAD968/RUSTSCAN-Command-Generator"
         className="github-corner"
         aria-label="View source on GitHub"
       >

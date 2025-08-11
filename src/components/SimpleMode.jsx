@@ -38,7 +38,8 @@ const SimpleMode = () => {
     {
       id: 'Ulimit-Scan',
       label: 'Increase Ulimit for More Ports',
-      getCommand: () => `rustscan -a ${ip} -- -sC -sV`,
+      // RustScan's --ulimit must be before the IP, -a <ip> is valid
+      getCommand: () => `rustscan --ulimit 1000 -a ${ip} -- -sC -sV`,
       explanation: 'Raise ulimit to handle more simultaneous ports, then run Nmap scripts and service detection'
     },
     {
@@ -50,48 +51,56 @@ const SimpleMode = () => {
     {
       id: 'All-Ports-Scan',
       label: 'All Ports Scan',
+      // Use -r for range; remove -a duplication of IP listing (already given)
       getCommand: () => `rustscan -a ${ip} -r 1-65535`,
       explanation: 'Scan all 65,535 ports — faster than Nmap, but without detailed service info by default'
     },
     {
       id: 'Batch-Size-Scan',
       label: 'High Speed Scan',
+      // Valid: -b <batch_size>
       getCommand: () => `rustscan -a ${ip} -b 4500`,
       explanation: 'Increase batch size to 4,500 for faster results (risk: might overwhelm slower networks)'
     },
     {
       id: 'Nmap-Integration',
       label: 'RustScan + Nmap Aggressive Scan',
+      // Valid: -A is an Nmap flag, must come after `--`
       getCommand: () => `rustscan -a ${ip} -- -A`,
       explanation: 'RustScan for port discovery, then Nmap aggressive scan (OS detect, version, scripts, traceroute)'
     },
     {
       id: 'Top-Ports-Scan',
       label: 'Top Ports Scan',
+      // -F is Nmap's fast scan, must come after `--`
       getCommand: () => `rustscan -a ${ip} -- -F`,
-      explanation: 'Scan only the top 100 most common ports quickly (uses Nmaps -F flag)',
+      explanation: 'Scan only the top 100 most common ports quickly (uses Nmap’s -F flag)'
     },
     {
       id: 'Script-Scan',
       label: 'Service & Script Scan',
+      // Both -sC and -sV are Nmap flags → must be after `--`
       getCommand: () => `rustscan -a ${ip} -- -sC -sV`,
       explanation: 'RustScan for discovery, Nmap default scripts (-sC) and service/version detection (-sV)'
     },
     {
       id: 'Quiet-Scan',
       label: 'Quiet Scan',
+      // -q is a valid RustScan flag
       getCommand: () => `rustscan -a ${ip} -q`,
       explanation: 'Quiet mode — only shows open ports without additional output'
     },
     {
       id: 'Custom-Range',
       label: 'Custom Port Range',
+      // -r for range is valid
       getCommand: () => `rustscan -a ${ip} -r 1-1000`,
       explanation: 'Scan a specific port range (example: 1-1000)'
     },
     {
       id: 'UDP-Scan',
       label: 'UDP Scan (via Nmap)',
+      // -sU is an Nmap flag → must be after `--`
       getCommand: () => `rustscan -a ${ip} -- -sU`,
       explanation: 'RustScan for discovery, then Nmap UDP scan (-sU) — slower but detects UDP services'
     }
