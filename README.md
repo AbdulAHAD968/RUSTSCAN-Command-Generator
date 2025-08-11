@@ -5,7 +5,7 @@
 ---
 
 ## Overview
-The RustScan Command Generator is a web application built with React to simplify the creation of RustScan commands for network scanning. It offers three modes—Basic, Advanced, and NSE—to cater to users of varying expertise, providing an intuitive interface for generating tailored RustScan commands.
+The RustScan Command Generator is a web application built with React to simplify the creation of RustScan commands for network scanning. It offers two modes—Basic, and Advanced scripts cater to users of varying expertise, providing an intuitive interface for generating tailored RustScan commands.
 
 - **Live Site**: [https://rustscan.vercel.app/](https://rustscan.vercel.app/)
 - **Repository**: [https://github.com/AbdulAHAD968/RUSTSCAN-Command-Generator](https://github.com/AbdulAHAD968/RUSTSCAN-Command-Generator)
