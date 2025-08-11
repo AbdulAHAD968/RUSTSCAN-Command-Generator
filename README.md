@@ -1,24 +1,25 @@
-# NMAP Command Generator
+# RustScan Command Generator
 
 ![Home Page - Common Scripts](./github-readme-assets/basic-scan.png)
+
 ---
 
 ## Overview
-The NMAP Command Generator is a web application built with React to simplify the creation of NMAP commands for network scanning. It offers three modes—Basic, Advanced, and NSE—to cater to users of varying expertise, providing an intuitive interface for generating tailored NMAP commands.
+The RustScan Command Generator is a web application built with React to simplify the creation of RustScan commands for network scanning. It offers three modes—Basic, Advanced, and NSE—to cater to users of varying expertise, providing an intuitive interface for generating tailored RustScan commands.
 
-- **Live Site**: [https://nmap-delta.vercel.app/](https://nmap-delta.vercel.app/)
+- **Live Site**: [https://rustscan.vercel.app/](https://rustscan.vercel.app/)
+- **Repository**: [https://github.com/AbdulAHAD968/RUSTSCAN-Command-Generator](https://github.com/AbdulAHAD968/RUSTSCAN-Command-Generator)
 
 ---
 
 ## Features
-The application provides three modes for generating NMAP commands:
-1. **Basic Mode**: Pre-configured, commonly used NMAP commands for quick and simple network scanning, ideal for beginners.
-2. **Advanced Mode**: Customizable NMAP flags for OS detection, verbosity, and scan speed, suitable for experienced users requiring precise control.
-
+The application provides three modes for generating RustScan commands:
+1. **Basic Mode**: Pre-configured, commonly used RustScan commands for quick and simple network scanning, ideal for beginners.
+2. **Advanced Mode**: Customizable RustScan flags for scan speed, batch size, and other options, suitable for experienced users requiring precise control.
 
 ---
 
-## Additional features:
+## Additional Features
 - IP input field for specifying target addresses.
 - Generated commands can be copied for use in a terminal.
 - Responsive and user-friendly interface.
@@ -26,12 +27,12 @@ The application provides three modes for generating NMAP commands:
 ---
 
 ## Installation
-To run the NMAP Command Generator locally:
+To run the RustScan Command Generator locally:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/AbdulAHAD968/NMAP-COMMAND-GENERATOR.git
-   cd NMAP-COMMAND-GENERATOR
+   git clone https://github.com/AbdulAHAD968/RUSTSCAN-Command-Generator.git
+   cd RUSTSCAN-Command-Generator
    ```
 
 2. **Install Dependencies**:
@@ -49,13 +50,12 @@ To run the NMAP Command Generator locally:
 ---
 
 ## Usage
-1. **Access the Application**: Visit [https://nmap-delta.vercel.app/](https://nmap-delta.vercel.app/) or run locally.
+1. **Access the Application**: Visit [https://rustscan.vercel.app/](https://rustscan.vercel.app/) or run locally.
 2. **Enter an IP Address**: Input the target IP address for scanning.
 3. **Select a Mode**:
-   - **Basic**: Choose from pre-configured NMAP commands.
-   - **Advanced**: Customize flags for detailed scanning options.
-   - **NSE**: Select and configure NSE scripts for advanced scans.
-4. **Generate and Copy**: Copy the generated NMAP command for use in a terminal.
+   - **Basic**: Choose from pre-configured RustScan commands.
+   - **Advanced**: Customize flags for detailed scanning options, such as batch size or scan timeout.
+4. **Generate and Copy**: Copy the generated RustScan command for use in a terminal.
 
 ---
 
@@ -68,7 +68,7 @@ To run the NMAP Command Generator locally:
 
 ## Project Structure
 ```bash
-NMAP-COMMAND-GENERATOR/
+RUSTSCAN-Command-Generator/
 ├── src/
 │   ├── components/
 │   │   ├── IpInput.js       # IP address input field
@@ -79,7 +79,6 @@ NMAP-COMMAND-GENERATOR/
 │   │   ├── App.css          # Core application styles
 │   │   ├── SimpleMode.css   # Basic mode styles
 │   │   ├── AdvanceMode.css  # Advanced mode styles
-│   │   ├── NSEmode.css      # NSE mode styles
 │   │   ├── ip-input.css     # IP input styles
 │   ├── App.js               # Main application component
 ├── public/
@@ -114,11 +113,13 @@ Created by Abdul Ahad, 2025.
 
 ## Images
 
-### NMAP Advance Scan Commands (Snapshot)
-![Home Page - Common Scripts](./github-readme-assets/advance-scan.png)
+### RustScan Advanced Scan Commands (Snapshot)
+![Advanced Scan Commands](./github-readme-assets/advance-scan.png)
 
-### NMAP NSE Scan Commands (Snapshot)
-![Home Page - Common Scripts](./github-readme-assets/nse-script-scan.png)
+### RustScan NSE Scan Commands (Snapshot)
+![NSE Scan Commands](./github-readme-assets/nse-script-scan.png)
 
 ### Lighthouse Test (Can vary - Depending on Network Connectivity)
-![Home Page - Common Scripts](./github-readme-assets/lighthouse-nmap-test.PNG)
+![Lighthouse Test](./github-readme-assets/lighthouse-nmap-test.PNG)
+
+---
