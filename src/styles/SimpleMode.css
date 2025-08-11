@@ -1,0 +1,348 @@
+/* Main container styling */
+.simple-mode-container {
+  position: relative;
+  min-height: 100vh;
+  padding: .2rem;
+  overflow: hidden;
+  background-color: #f8f9fa00;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Content styling */
+.simple-mode-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 8px;
+  padding: .7rem;
+}
+
+.mode-title {
+  color: #3c4043;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.mode-description {
+  color: #5f6368;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 549;
+  line-height: 1.4;
+}
+
+/* Commands grid */
+.commands-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Command card styling */
+.command-card {
+  background: #a5d8ff16;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.command-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.391);
+}
+
+.command-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.command-header h4 {
+  margin: 0;
+  color: #202124;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.command-body {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.command-text-container {
+  flex-grow: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #fcfcfce3;
+  border-radius: 4px;
+  padding: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.command-text {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  color: #3c4043;
+  white-space: nowrap;
+  display: inline-block;
+  min-width: 100%;
+}
+
+/* Scrollbar styling */
+.command-text-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.command-text-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.command-text-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+.command-text-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.copy-button {
+  background: #f1f3f4;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #5f6368;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.copy-button:hover {
+  background: #e8f0fe;
+  color: #1967d2;
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.info-icon {
+  color: #9aa0a6;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: #3c4043;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tips section */
+.tips-section {
+  background: #f8f9fa4f;
+  padding: 1.2rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #4285f4;
+}
+
+.tips-section h3 {
+  margin-top: 0;
+  color: #3c4043;
+  font-size: 1.2rem;
+}
+
+.tips-section ul {
+  padding-left: 1.2rem;
+  color: #5f6368;
+  font-size: 0.95rem;
+}
+
+.tips-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #229f22ff;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(30, 32, 31, 0.45);
+  z-index: 9999;
+}
+
+/* Responsive adjustments for tablets (580px and up) */
+@media (min-width: 580px) {
+  .simple-mode-container {
+    padding: 1rem;
+  }
+  
+  .simple-mode-content {
+    padding: 1.5rem;
+  }
+  
+  .mode-title {
+    font-size: 2rem;
+  }
+  
+  .mode-description {
+    font-size: 1.05rem;
+  }
+  
+  .commands-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+  
+  .command-card {
+    padding: 1.2rem;
+  }
+  
+  .command-header h4 {
+    font-size: 1.15rem;
+  }
+  
+  .tips-section {
+    padding: 1.3rem;
+  }
+}
+
+/* Responsive adjustments for larger screens (768px and up) */
+@media (min-width: 768px) {
+  .simple-mode-container {
+    padding: 2rem;
+  }
+  
+  .simple-mode-content {
+    width:95%;
+    padding: 2rem;
+  }
+  
+  .mode-title {
+    font-size: 2.3rem;
+  }
+  
+  .mode-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .commands-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .command-card {
+    padding: 1.5rem;
+  }
+  
+  .command-header h4 {
+    font-size: 1.2rem;
+  }
+
+  .command-text {
+    font-size: 1rem;
+  }
+  
+  .command-text-container {
+    padding: 0.7rem;
+  }
+  
+  .tips-section {
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .tips-section h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Special adjustments for very small mobile devices (380px and below) */
+@media (max-width: 405px) {
+  .mode-title {
+    font-size: 1.2rem;
+  }
+
+  .command-card {
+    width: 97%;
+  }
+
+  .simple-mode-content {
+    width: 95%;
+    padding: .7rem;
+  }
+  
+  .mode-description {
+    font-size: 0.85rem;
+  }
+  
+  .command-header h4 {
+    font-size: 0.9rem;
+  }
+  
+  .command-text {
+    font-size: 0.7rem;
+  }
+  
+  .command-text-container {
+    padding: 0.3rem;
+  }
+  
+  .tips-section {
+    padding: 0.8rem;
+  }
+  
+  .tips-section h3 {
+    font-size: 0.9rem;
+  }
+  
+  .tips-section ul {
+    font-size: 0.7rem;
+    padding-left: 0.7rem;
+  }
+}
